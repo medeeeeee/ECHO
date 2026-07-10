@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPlant - Mi Planta</title>
+
+    <link rel="stylesheet" href="../static/css/principal.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div>
+            <h1>🌱 EcoPlant</h1>
+            <p>¡Bienvenido de nuevo!</p>
+        </div>
+
+        <div class="puntos">
+            ⭐ <span>1.250</span> puntos
+        </div>
+    </header>
+
+    <main class="contenido">
+
+        <section class="planta">
+            <h2>Mi Planta</h2>
+
+            <div class="imagen-planta">
+                🌿
+            </div>
+
+            <h3>Roble Verde</h3>
+
+            <p class="estado">
+                Estado: <strong>Saludable</strong>
+            </p>
+
+            <div class="progreso">
+                <label>Crecimiento</label>
+                <progress value="70" max="100"></progress>
+                <span>70%</span>
+            </div>
+        </section>
+
+        <section class="tareas">
+
+            <h2>Tareas de hoy</h2>
+
+            <div class="tarea">
+                <input type="checkbox" id="t1">
+                <label for="t1">
+                    Reciclar una botella de plástico (+20 puntos)
+                </label>
+            </div>
+
+            <div class="tarea">
+                <input type="checkbox" id="t2">
+                <label for="t2">
+                    Ahorrar agua durante el cepillado (+15 puntos)
+                </label>
+            </div>
+
+            <div class="tarea">
+                <input type="checkbox" id="t3">
+                <label for="t3">
+                    Apagar las luces innecesarias (+10 puntos)
+                </label>
+            </div>
+
+            <button class="boton-principal">
+                Confirmar tareas completadas
+            </button>
+
+        </section>
+
+    </main>
+
+    <section class="resumen">
+
+        <div class="card">
+            <h3>🔥 Racha</h3>
+            <p>12 días consecutivos</p>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Nivel</h3>
+            <p>Nivel 5</p>
+        </div>
+
+        <div class="card">
+            <h3>🍃 Impacto</h3>
+            <p>45 acciones ecológicas</p>
+        </div>
+
+    </section>
+
+        <!-- Botón del menú -->
+<button class="menu-btn" onclick="abrirMenu()">
+    ☰
+</button>
+
+<!-- Menú lateral -->
+<nav id="menuLateral" class="menu-lateral">
+
+    <button class="cerrar-menu" onclick="cerrarMenu()">
+        ✕
+    </button>
+
+    <h2>Menú</h2>
+
+    <a href="#">📋 Registro de tareas</a>
+
+    <a href="#">📖 Diario</a>
+
+    <a href="#">🎁 Recompensas</a>
+
+    <a href="#">⚙️ Ajustes</a>
+
+    <a href="#" class="cerrar-sesion">
+        🚪 Cerrar sesión
+    </a>
+
+</nav>
+
+<script>
+function abrirMenu(){
+    document.getElementById("menuLateral").style.left="0";
+}
+
+function cerrarMenu(){
+    document.getElementById("menuLateral").style.left="-280px";
+}
+</script>
+
+
+</body>
+</html>
