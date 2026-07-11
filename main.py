@@ -12,7 +12,23 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     points = db.Column(db.Integer, default=0)
-    plants = db.Column(db.String(200), default=0)
+    plant_name = db.Column(db.String(200), default=0)
+    streak = db.Column(db.Integer, default=0)
+    lvl = db.Column(db.Integer, default=0)
+    impact = db.Column(db.Integer, default=0)
+
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    points = db.Column(db.Integer, nullable=False)
+    completed = db.Column(db.Boolean, default=False)
+
+class DiaryEntry(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
 
 @app.route('/')
 def index():
@@ -23,7 +39,6 @@ def register():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-
         # Aquí puedes agregar la lógica para registrar al usuario en la base de datos
         # Por ejemplo, puedes crear un nuevo objeto `User` y guardarlo en la base de datos
         new_user = User(email=email, password=password)
@@ -46,7 +61,6 @@ def login():
         return render_template('index.html', error=error)
         # Aquí puedes agregar la lógica para verificar el correo electrónico y la contraseña en la base de datos
         # Por ejemplo, puedes consultar la base de datos para verificar si el usuario existe y si la contraseña es correcta
-
         # Si el inicio de sesión es exitoso, puedes redirigir al usuario a otra página
     else:
         return redirect('/')

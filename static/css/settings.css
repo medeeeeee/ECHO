@@ -1,0 +1,232 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+    background:linear-gradient(160deg,#1B5E20,#2E7D32,#4CAF50,#A5D6A7);
+    padding:30px;
+
+}
+
+.encabezado{
+
+    max-width:1000px;
+    margin:auto;
+    margin-bottom:30px;
+
+    background:rgba(255,255,255,.95);
+
+    padding:20px 30px;
+
+    border-radius:20px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+}
+
+.encabezado h1{
+
+    color:#1B5E20;
+
+}
+
+.volver{
+
+    text-decoration:none;
+    color:white;
+    background:#2E7D32;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.volver:hover{
+
+    background:#1B5E20;
+
+}
+
+.contenedor{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+
+    gap:25px;
+
+}
+
+.tarjeta{
+
+    background:rgba(255,255,255,.95);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+
+}
+
+.tarjeta h2{
+
+    color:#1B5E20;
+
+    margin-bottom:20px;
+
+}
+
+label{
+
+    display:block;
+
+    margin-top:15px;
+    margin-bottom:8px;
+
+    font-weight:600;
+
+    color:#1B5E20;
+
+}
+
+input[type=text],
+input[type=email],
+select{
+
+    width:100%;
+
+    padding:12px;
+
+    border:2px solid #A5D6A7;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+select:focus{
+
+    border-color:#2E7D32;
+
+}
+
+.opcion{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 0;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+.opcion:last-child{
+
+    border:none;
+
+}
+
+input[type=checkbox]{
+
+    width:20px;
+    height:20px;
+
+    accent-color:#2E7D32;
+
+}
+
+.botones{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+button{
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.guardar{
+
+    background:#2E7D32;
+
+}
+
+.guardar:hover{
+
+    background:#1B5E20;
+
+}
+
+.cerrar{
+
+    background:#C62828;
+
+}
+
+.cerrar:hover{
+
+    background:#8E0000;
+
+}
+
+@media(max-width:768px){
+
+    .encabezado{
+
+        flex-direction:column;
+
+        gap:15px;
+
+        text-align:center;
+
+    }
+
+}
