@@ -1,0 +1,162 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(160deg,#1B5E20,#2E7D32,#4CAF50,#A5D6A7);
+    padding:30px;
+}
+
+/* ENCABEZADO */
+
+.encabezado{
+    max-width:1200px;
+    margin:auto;
+    margin-bottom:30px;
+    background:rgba(255,255,255,.95);
+    border-radius:20px;
+    padding:20px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+
+.encabezado h1{
+    color:#1B5E20;
+}
+
+.volver{
+    text-decoration:none;
+    background:#2E7D32;
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    transition:.3s;
+}
+
+.volver:hover{
+    background:#1B5E20;
+}
+
+/* CONTENEDOR */
+
+.contenedor{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+/* TARJETAS */
+
+.escribir,
+.historial{
+    background:rgba(255,255,255,.95);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+h2{
+    color:#1B5E20;
+    margin-bottom:20px;
+}
+
+/* FORMULARIO */
+
+label{
+    display:block;
+    margin-top:18px;
+    margin-bottom:8px;
+    color:#1B5E20;
+    font-weight:600;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:2px solid #A5D6A7;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#2E7D32;
+}
+
+textarea{
+    resize:none;
+    height:220px;
+}
+
+/* BOTÓN */
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#2E7D32;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#1B5E20;
+}
+
+/* HISTORIAL */
+
+.entrada{
+    background:#F5FFF4;
+    border-left:6px solid #2E7D32;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.entrada h3{
+    color:#2E7D32;
+    margin-bottom:5px;
+}
+
+.entrada h4{
+    margin-bottom:10px;
+    color:#1B5E20;
+}
+
+.entrada p{
+    color:#555;
+    line-height:1.6;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .contenedor{
+        grid-template-columns:1fr;
+    }
+
+    .encabezado{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+
+}

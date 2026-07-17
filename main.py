@@ -39,6 +39,7 @@ class DiaryEntry(db.Model):
     def __repr__(self):
         return f'<DiaryEntry {self.id}>'
 
+
 @app.route('/')
 def index():
     return render_template('index.html')

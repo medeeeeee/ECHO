@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECHO - Diario</title>
+
+    <link rel="stylesheet" href="../static/css/diario.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="encabezado">
+
+        <h1>📖 Mi Diario</h1>
+
+        <a href="dashboard.html" class="volver">← Volver</a>
+
+    </header>
+
+    <main class="contenedor">
+
+        <section class="escribir">
+
+            <h2>Nueva entrada</h2>
+
+
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" placeholder="Escribe un título...">
+
+            <label for="texto">¿Qué has hecho hoy?</label>
+
+            <textarea id="texto"
+                placeholder="Cuenta cómo ha ido tu día, qué tareas ecológicas has realizado o cómo ha crecido tu planta..."></textarea>
+
+            <button>
+                💾 Guardar entrada
+            </button>
+
+        </section>
+
+        <section class="historial">
+
+            <h2>Entradas recientes</h2>
+
+            <div class="entrada">
+                <h3>12/07/2026</h3>
+                <h4>Un buen día 🌱</h4>
+                <p>
+                    Hoy he reciclado plástico y papel. También he regado mi planta y ha aumentado su crecimiento.
+                </p>
+            </div>
+
+            <div class="entrada">
+                <h3>11/07/2026</h3>
+                <h4>Ahorrando agua 💧</h4>
+                <p>
+                    He cerrado el grifo mientras me cepillaba los dientes y he conseguido completar todas las tareas.
+                </p>
+            </div>
+
+            <div class="entrada">
+                <h3>10/07/2026</h3>
+                <h4>Paseo ecológico 🚶</h4>
+                <p>
+                    He ido andando al instituto en lugar de utilizar el coche.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
