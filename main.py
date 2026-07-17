@@ -112,6 +112,11 @@ def tareas():
         return render_template('registro.html', user=user)
     else:
         return redirect('/')
+    
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect('/')
 
 with app.app_context():
     db.create_all()
