@@ -24,6 +24,7 @@ class User(db.Model):
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     completed = db.Column(db.Boolean, default=False)
@@ -77,7 +78,7 @@ def login():
     else:
         return redirect('/')
     
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if 'user_id' in session:
         user_id = session['user_id']

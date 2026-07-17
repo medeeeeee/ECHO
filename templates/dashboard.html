@@ -49,32 +49,33 @@
 
             <h2>Tareas de hoy</h2>
 
-            <div class="tarea">
-                <input type="checkbox" id="t1">
-                <label for="t1">
-                    Reciclar una botella de plástico (+20 puntos)
-                </label>
-            </div>
+            <form action="/completar_tareas" method="POST">
+
+            {% for task in tareas %}
 
             <div class="tarea">
-                <input type="checkbox" id="t2">
-                <label for="t2">
-                    Ahorrar agua durante el cepillado (+15 puntos)
-                </label>
+            <input 
+            type="checkbox"
+            name="tareas"
+            value="{{ task.id }}"
+            >
+            <label>
+            {{ task.name }}
+            (+{{ task.points }} puntos)
+
+            </label>
             </div>
 
-            <div class="tarea">
-                <input type="checkbox" id="t3">
-                <label for="t3">
-                    Apagar las luces innecesarias (+10 puntos)
-                </label>
-            </div>
+            {% endfor %}
 
-            <button class="boton-principal">
-                Confirmar tareas completadas
+               <button class="boton-principal">
+            Confirmar tareas completadas
             </button>
 
+            </form>
+
         </section>
+
 
     </main>
 
