@@ -1,0 +1,9 @@
+QUEDA POR HACER:
+
+que aparezcan las variables de las bases de datos donde tienen que aparecer
+que se puedan sumar puntos haciendo las tareas
+que se puedan crear y guardar tarjetas en el diario
+que se puedan cambiar las cosas de ajustes
+que se queden registradas las tareas realizadas
+que se pueda cerrar sesión
+que se mantenga la racha diaria

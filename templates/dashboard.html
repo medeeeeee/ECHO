@@ -15,18 +15,18 @@
     <header class="encabezado">
         <div>
             <h1>🌱 ECHO</h1>
-            <p>¡Bienvenido de nuevo!</p>
+            <p>¡Te damos la bienvenida, {{ user.username }}!</p>
         </div>
 
         <div class="puntos">
-            ⭐ <span>1.250</span> puntos
+            ⭐ {{ user.points }} puntos
         </div>
     </header>
 
     <main class="contenido">
 
         <section class="planta">
-            <h2>Mi Planta</h2>
+            <h2>{{ user.plant_name }}</h2>
 
             <div class="imagen-planta">
                 🌿
@@ -82,17 +82,17 @@
 
         <div class="card">
             <h3>🔥 Racha</h3>
-            <p>12 días consecutivos</p>
+            <p>{{ user.streak }} días consecutivos</p>
         </div>
 
         <div class="card">
             <h3>🏆 Nivel</h3>
-            <p>Nivel 5</p>
+            <p>Nivel {{ user.lvl }}</p>
         </div>
 
         <div class="card">
             <h3>🍃 Impacto</h3>
-            <p>45 acciones ecológicas</p>
+            <p>{{ user.impact }} acciones ecológicas</p>
         </div>
 
     </section>

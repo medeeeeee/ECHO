@@ -11,6 +11,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    username = db.Column(db.String(100), nullable=True)
     points = db.Column(db.Integer, default=0)
     plant_name = db.Column(db.String(200), default=0)
     streak = db.Column(db.Integer, default=0)
