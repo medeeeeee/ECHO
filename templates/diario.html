@@ -28,47 +28,43 @@
             <h2>Nueva entrada</h2>
 
 
-            <label for="titulo">Título</label>
-            <input type="text" id="titulo" placeholder="Escribe un título...">
+            <form action="{{ url_for('guardar_entrada') }}" method="POST">
 
-            <label for="texto">¿Qué has hecho hoy?</label>
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo">
 
-            <textarea id="texto"
-                placeholder="Cuenta cómo ha ido tu día, qué tareas ecológicas has realizado o cómo ha crecido tu planta..."></textarea>
+                <label for="texto">¿Qué has hecho hoy?</label>
+                <textarea id="texto" name="texto"></textarea>
 
-            <button>
-                💾 Guardar entrada
-            </button>
+                <button type="submit">
+                    💾 Guardar entrada
+                </button>
+
+            </form>
 
         </section>
 
         <section class="historial">
 
-            <h2>Entradas recientes</h2>
+            <h2>Mis entradas</h2>
 
-            <div class="entrada">
-                <h3>12/07/2026</h3>
-                <h4>Un buen día 🌱</h4>
-                <p>
-                    Hoy he reciclado plástico y papel. También he regado mi planta y ha aumentado su crecimiento.
-                </p>
-            </div>
+            {% if entradas %}
 
-            <div class="entrada">
-                <h3>11/07/2026</h3>
-                <h4>Ahorrando agua 💧</h4>
-                <p>
-                    He cerrado el grifo mientras me cepillaba los dientes y he conseguido completar todas las tareas.
-                </p>
-            </div>
+                {% for entrada in entradas %}
 
-            <div class="entrada">
-                <h3>10/07/2026</h3>
-                <h4>Paseo ecológico 🚶</h4>
-                <p>
-                    He ido andando al instituto en lugar de utilizar el coche.
-                </p>
-            </div>
+                    <div class="entrada">
+                        <h3>{{ entrada.timestamp.strftime('%d/%m/%Y') }}</h3>
+                        <h4>{{ entrada.title }}</h4>
+                        <p>{{ entrada.content }}</p>
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>Aún no has escrito ninguna entrada.</p>
+
+            {% endif %}
 
         </section>
 

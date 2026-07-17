@@ -97,12 +97,30 @@ def ajustes():
     
 @app.route('/diario')
 def diario():
-    if 'user_id' in session:
-        user_id = session['user_id']
-        user = User.query.get(user_id)
-        return render_template('diario.html', user=user)
-    else:
+    if 'user_id' not in session:
         return redirect('/')
+
+    entradas = DiaryEntry.query.filter_by(
+        user_id=session['user_id']
+    ).order_by(DiaryEntry.timestamp.desc()).all()
+
+    return render_template("diario.html", entradas=entradas)
+
+@app.route('/guardar_entrada', methods=['POST'])
+def guardar_entrada():
+    if 'user_id' not in session:
+        return redirect('/')
+
+    entrada = DiaryEntry(
+        user_id=session['user_id'],
+        title=request.form['titulo'],
+        content=request.form['texto']
+    )
+
+    db.session.add(entrada)
+    db.session.commit()
+
+    return redirect('/diario')
 
 @app.route('/tareas')
 def tareas():
