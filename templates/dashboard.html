@@ -51,24 +51,32 @@
 
             <form action="/completar_tareas" method="POST">
 
-            {% for task in tareas %}
+            {% if tareas %}
 
-            <div class="tarea">
-            <input 
-            type="checkbox"
-            name="tareas"
-            value="{{ task.id }}"
-            >
-            <label>
-            {{ task.name }}
-            (+{{ task.points }} puntos)
+                {% for task in tareas %}
+                
 
-            </label>
-            </div>
+                <div class="tarea">
+                    <input 
+                    type="checkbox"
+                    name="tareas"
+                    value="{{ task.id }}">
+                    
+                    <label>
+                        {{ task.name }}
+                        (+{{ task.points }} puntos)
+                    </label>
+                </div>
 
-            {% endfor %}
+                {% endfor %}
 
-               <button class="boton-principal">
+            {% else %}
+
+                <p>No tienes tareas pendientes 🎉</p>
+
+            {% endif %}
+
+            <button class="boton-principal">
             Confirmar tareas completadas
             </button>
 

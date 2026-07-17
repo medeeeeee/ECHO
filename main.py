@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
+from tareas import tareas
+from datetime import date
 
 app = Flask(__name__)
 app.secret_key = "una_clave_secreta"
@@ -28,6 +30,7 @@ class Task(db.Model):
     name = db.Column(db.String(100), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     completed = db.Column(db.Boolean, default=False)
+    date = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
         return f'<Task {self.id}>'
@@ -42,6 +45,21 @@ class DiaryEntry(db.Model):
     def __repr__(self):
         return f'<DiaryEntry {self.id}>'
 
+#funcion para crear tareas
+
+def create_task(user_id):
+    day = date.today().timetuple().tm_yday
+    start = ((day - 1) * 3) % len(tareas)
+    for task in tareas:
+        new_task = Task(
+            user_id=user_id,
+            name=task['name'],
+            points=task['points'],
+            completed=False,
+            date= date.today()
+        )
+        db.session.add(new_task)
+    db.session.commit()
 
 @app.route('/')
 def index():
@@ -83,7 +101,17 @@ def dashboard():
     if 'user_id' in session:
         user_id = session['user_id']
         user = User.query.get(user_id)
-        return render_template('dashboard.html', user=user)
+
+        tareas = Task.query.filter_by(
+            user_id=user_id,
+            completed=False
+        ).all()
+
+        return render_template(
+            'dashboard.html',
+            user=user,
+            tareas=tareas
+        )
     else:
         return redirect('/')
     
