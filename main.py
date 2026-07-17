@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.secret_key = "una_clave_secreta"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -75,6 +76,44 @@ def login():
         # Si el inicio de sesión es exitoso, puedes redirigir al usuario a otra página
     else:
         return redirect('/')
+    
+@app.route('/dashboard')
+def dashboard():
+    if 'user_id' in session:
+        user_id = session['user_id']
+        user = User.query.get(user_id)
+        return render_template('dashboard.html', user=user)
+    else:
+        return redirect('/')
+    
+@app.route('/ajustes')
+def ajustes():
+    if 'user_id' in session:
+        user_id = session['user_id']
+        user = User.query.get(user_id)
+        return render_template('settings.html', user=user)
+    else:
+        return redirect('/')
+    
+@app.route('/diario')
+def diario():
+    if 'user_id' in session:
+        user_id = session['user_id']
+        user = User.query.get(user_id)
+        return render_template('diario.html', user=user)
+    else:
+        return redirect('/')
 
+@app.route('/tareas')
+def tareas():
+    if 'user_id' in session:
+        user_id = session['user_id']
+        user = User.query.get(user_id)
+        return render_template('registro.html', user=user)
+    else:
+        return redirect('/')
+
+with app.app_context():
+    db.create_all()
 
 app.run(debug=True)

@@ -30,10 +30,10 @@
             <h2>👤 Perfil</h2>
 
             <label>Nombre de usuario</label>
-            <input type="text" value="Usuario">
+            <input type="text" value="{{ user.username }}">
 
             <label>Correo electrónico</label>
-            <input type="email" value="usuario@correo.com">
+            <input type="email" value="{{ user.email }}">
 
         </section>
 
@@ -43,7 +43,7 @@
             <h2>🎨 Personalización</h2>
 
             <label>Nombre de tu planta</label>
-            <input type="text" value="Roble Verde">
+            <input type="text" value="{{ user.plant_name }}">
 
             <label>Idioma</label>
 
