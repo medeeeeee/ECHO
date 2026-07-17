@@ -33,6 +33,9 @@
                 <label for="titulo">Título</label>
                 <input type="text" id="titulo" name="titulo">
 
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha">
+
                 <label for="texto">¿Qué has hecho hoy?</label>
                 <textarea id="texto" name="texto"></textarea>
 
@@ -53,7 +56,7 @@
                 {% for entrada in entradas %}
 
                     <div class="entrada">
-                        <h3>{{ entrada.timestamp.strftime('%d/%m/%Y') }}</h3>
+                        <h3>{{ entrada.date}}</h3>
                         <h4>{{ entrada.title }}</h4>
                         <p>{{ entrada.content }}</p>
                     </div>

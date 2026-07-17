@@ -36,7 +36,7 @@ class DiaryEntry(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
+    date = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return f'<DiaryEntry {self.id}>'
@@ -95,6 +95,21 @@ def ajustes():
     else:
         return redirect('/')
     
+@app.route('/guardar_ajustes', methods=['POST'])
+def guardar_ajustes():
+    if 'user_id' not in session:
+        return redirect('/')
+
+    user = User.query.get(session['user_id'])
+
+    user.username = request.form['username']
+    user.email = request.form['email']
+    user.plant_name = request.form['plant_name']
+
+    db.session.commit()
+
+    return redirect('/ajustes')
+    
 @app.route('/diario')
 def diario():
     if 'user_id' not in session:
@@ -102,7 +117,7 @@ def diario():
 
     entradas = DiaryEntry.query.filter_by(
         user_id=session['user_id']
-    ).order_by(DiaryEntry.timestamp.desc()).all()
+    )
 
     return render_template("diario.html", entradas=entradas)
 
@@ -114,7 +129,8 @@ def guardar_entrada():
     entrada = DiaryEntry(
         user_id=session['user_id'],
         title=request.form['titulo'],
-        content=request.form['texto']
+        content=request.form['texto'],
+        date=request.form['fecha']
     )
 
     db.session.add(entrada)

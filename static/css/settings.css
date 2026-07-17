@@ -59,7 +59,7 @@ body{
 
 }
 
-.contenedor{
+.form{
 
     max-width:1000px;
 
@@ -194,9 +194,8 @@ button{
 }
 
 .guardar{
-
+    width:100%;
     background:#2E7D32;
-
 }
 
 .guardar:hover{
@@ -207,7 +206,33 @@ button{
 
 .cerrar{
 
+    display:block;
+    width:100%;
+    text-align:center;
+    text-decoration:none;
+
     background:#C62828;
+
+    padding:15px;
+
+    border:none;
+    border-radius:12px;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.cerrar:hover{
+
+    background:#8E0000;
 
 }
 

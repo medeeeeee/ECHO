@@ -23,31 +23,30 @@
 
     </header>
 
-    <main class="contenedor">
+    <form class="form" action="/guardar_ajustes" method="POST">
 
         <section class="tarjeta">
 
             <h2>👤 Perfil</h2>
 
             <label>Nombre de usuario</label>
-            <input type="text" value="{{ user.username }}">
+            <input type="text" name="username" value="{{ user.username }}">
 
             <label>Correo electrónico</label>
-            <input type="email" value="{{ user.email }}">
+            <input type="email" name="email" value="{{ user.email }}">
 
         </section>
-
 
         <section class="tarjeta">
 
             <h2>🎨 Personalización</h2>
 
             <label>Nombre de tu planta</label>
-            <input type="text" value="{{ user.plant_name }}">
+            <input type="text" name="plant_name" value="{{ user.plant_name }}">
 
             <label>Idioma</label>
 
-            <select>
+            <select name="language">
                 <option>Español</option>
                 <option>English</option>
                 <option>Français</option>
@@ -57,17 +56,18 @@
 
         <section class="tarjeta botones">
 
-            <button class="guardar">
+            <button type="submit" class="guardar">
                 💾 Guardar cambios
             </button>
 
-            <button class="cerrar">
+            <a href="/logout" class="cerrar">
                 🚪 Cerrar sesión
-            </button>
+            </a>
 
         </section>
 
-    </main>
+
+    </form>
 
 </body>
 
