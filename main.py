@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from tareas import tareas
-from datetime import date
+from datetime import date, datetime, timedelta
+import random
 
 app = Flask(__name__)
 app.secret_key = "una_clave_secreta"
@@ -17,6 +18,7 @@ class User(db.Model):
     username = db.Column(db.String(100), nullable=True)
     points = db.Column(db.Integer, default=0)
     plant_name = db.Column(db.String(200), default=0)
+    plant_type = db.Column(db.String(200), default=0)
     streak = db.Column(db.Integer, default=0)
     lvl = db.Column(db.Integer, default=0)
     impact = db.Column(db.Integer, default=0)
@@ -45,22 +47,60 @@ class DiaryEntry(db.Model):
     def __repr__(self):
         return f'<DiaryEntry {self.id}>'
 
-#funcion para crear tareas
-
 def create_task(user_id):
-    day = date.today().timetuple().tm_yday
-    start = ((day - 1) * 3) % len(tareas)
-    for task in tareas:
-        new_task = Task(
+
+    hoy = str(date.today())
+    tareas_hoy = Task.query.filter_by(
+        user_id=user_id,
+        date=hoy
+    ).first()
+    if tareas_hoy:
+        return
+
+    tareas_aleatorias = random.sample(tareas, 4)
+
+    for tarea in tareas_aleatorias:
+        db.session.add(Task(
             user_id=user_id,
-            name=task['name'],
-            points=task['points'],
+            name=tarea["name"],
+            points=tarea["points"],
             completed=False,
-            date= date.today()
-        )
-        db.session.add(new_task)
+            date=str(date.today())
+        ))
     db.session.commit()
 
+
+def calcular_racha(user_id):
+    tareas = Task.query.filter_by(
+        user_id=user_id,
+        completed=True
+    ).all()
+    dias = set()
+    for tarea in tareas:
+        dias.add(datetime.strptime(tarea.date, "%Y-%m-%d").date())
+    if not dias:
+        return 0
+    dias = sorted(dias, reverse=True)
+    hoy = date.today()
+
+    # Si hoy no hizo ninguna tarea, empezamos desde ayer
+    if dias[0] == hoy:
+        anterior = hoy
+    elif dias[0] == hoy - timedelta(days=1):
+        anterior = hoy - timedelta(days=1)
+    else:
+        return 0
+    racha = 1
+
+    for dia in dias[1:]:
+        if dia == anterior - timedelta(days=1):
+            racha += 1
+            anterior = dia
+        else:
+            break
+    return racha
+
+    
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -70,14 +110,15 @@ def register():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        # Aquí puedes agregar la lógica para registrar al usuario en la base de datos
-        # Por ejemplo, puedes crear un nuevo objeto `User` y guardarlo en la base de datos
-        new_user = User(email=email, password=password)
+        username = request.form['username']
+        plant_name = request.form['plant_name']
+        plant_type = request.form['plant_type']
+        new_user = User(email=email, password=password, username=username, plant_name=plant_name, plant_type=plant_type)
         db.session.add(new_user)
         db.session.commit()
-    return render_template('index.html')
+    return render_template('register.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     error=''
     if request.method == 'POST':
@@ -90,9 +131,7 @@ def login():
                 return redirect('/dashboard')
         error='Correo electrónico o contraseña incorrectos'
         return render_template('index.html', error=error)
-        # Aquí puedes agregar la lógica para verificar el correo electrónico y la contraseña en la base de datos
-        # Por ejemplo, puedes consultar la base de datos para verificar si el usuario existe y si la contraseña es correcta
-        # Si el inicio de sesión es exitoso, puedes redirigir al usuario a otra página
+    
     else:
         return redirect('/')
     
@@ -100,11 +139,12 @@ def login():
 def dashboard():
     if 'user_id' in session:
         user_id = session['user_id']
+        create_task(user_id)
         user = User.query.get(user_id)
 
         tareas = Task.query.filter_by(
             user_id=user_id,
-            completed=False
+            date=str(date.today())
         ).all()
 
         return render_template(
@@ -114,6 +154,33 @@ def dashboard():
         )
     else:
         return redirect('/')
+    
+
+@app.route('/completar_tareas', methods=['POST'])
+def completar_tareas():
+    if 'user_id' not in session:
+        return redirect('/')
+
+    user = User.query.get(session['user_id'])
+
+    tareas_marcadas = request.form.getlist("tareas")
+
+    for tarea_id in tareas_marcadas:
+        tarea = Task.query.get(int(tarea_id))
+
+        if tarea and not tarea.completed:
+            tarea.completed = True
+
+            user.points += tarea.points
+            user.impact += 1
+
+    db.session.commit()
+    user.streak = calcular_racha(user.id)
+    user.lvl = user.points // 100
+    db.session.commit()
+
+    return redirect('/dashboard')
+
     
 @app.route('/ajustes')
 def ajustes():
@@ -167,14 +234,20 @@ def guardar_entrada():
 
     return redirect('/diario')
 
-@app.route('/tareas')
-def tareas():
-    if 'user_id' in session:
-        user_id = session['user_id']
-        user = User.query.get(user_id)
-        return render_template('registro.html', user=user)
-    else:
+@app.route('/tareas_reg')
+def tareas_reg():
+    if 'user_id' not in session:
         return redirect('/')
+
+    tareas = Task.query.filter_by(
+        user_id=session['user_id']
+    ).order_by(Task.date.desc()).all()
+
+    return render_template(
+        'registro.html',
+        user=User.query.get(session['user_id']),
+        tareas=tareas
+    )
     
 @app.route('/logout')
 def logout():

@@ -29,13 +29,29 @@
             <h2>{{ user.plant_name }}</h2>
 
             <div class="imagen-planta">
-                🌿
+                {% if user.impact < 100 %}
+                    🌱
+                {% elif user.impact < 200 %}
+                    🌾 
+                {% else %}
+                    🌳 
+                {% endif %}
             </div>
 
-            <h3>Roble Verde</h3>
+            <h3>{{ user.plant_type }}</h3>
 
             <p class="estado">
-                Estado: <strong>Saludable</strong>
+                Estado: <strong>
+                {% if user.impact < 100 %}
+                    Pequeña
+                {% elif user.impact < 200 %}
+                    Mediana
+                {% else %}
+                    Grande
+                {% endif %}
+
+                
+                </strong>
             </p>
 
             <div class="progreso">
@@ -54,19 +70,34 @@
             {% if tareas %}
 
                 {% for task in tareas %}
-                
+                    {% if task.completed %}
+                        <div class="tarea completada">
+                            <input 
+                            type="checkbox"
+                            name="tareas"
+                            value="{{ task.id }}"
+                            checked
+                            disabled>
+                            
+                            <label>
+                                {{ task.name }}
+                                (+{{ task.points }} puntos)
+                            </label>
+                        </div>
+                    {% else %}
 
-                <div class="tarea">
-                    <input 
-                    type="checkbox"
-                    name="tareas"
-                    value="{{ task.id }}">
-                    
-                    <label>
-                        {{ task.name }}
-                        (+{{ task.points }} puntos)
-                    </label>
-                </div>
+                        <div class="tarea">
+                            <input 
+                            type="checkbox"
+                            name="tareas"
+                            value="{{ task.id }}">
+                            
+                            <label>
+                                {{ task.name }}
+                                (+{{ task.points }} puntos)
+                            </label>
+                        </div>
+                    {% endif %}
 
                 {% endfor %}
 
@@ -120,7 +151,7 @@
 
     <h2>Menú</h2>
 
-    <a href="tareas">📋 Registro de tareas</a>
+    <a href="tareas_reg">📋 Registro de tareas</a>
 
     <a href="diario">📖 Diario</a>
 

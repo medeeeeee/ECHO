@@ -55,36 +55,29 @@
                     <th>Fecha</th>
                     <th>Tarea</th>
                     <th>Puntos</th>
+                    <th>Estado</th>
                 </tr>
 
             </thead>
 
             <tbody>
 
-                <tr>
-                    <td>12/07/2026</td>
-                    <td>Reciclar una botella de plástico</td>
-                    <td>20</td>
-                </tr>
+                {% for task in tareas %}
 
                 <tr>
-                    <td>12/07/2026</td>
-                    <td>Ahorrar agua</td>
-                    <td>15</td>
+                    <td>{{ task.date }}</td>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.points }}</td>
+                    <td>
+                        {% if task.completed %}
+                            <span class="completada">Completada</span>
+                        {% else %}
+                            <span class="pendiente">Pendiente</span>
+                        {% endif %}
+                    </td>
                 </tr>
-
-                <tr>
-                    <td>11/07/2026</td>
-                    <td>Apagar las luces innecesarias</td>
-                    <td>10</td>
-                </tr>
-
-                <tr>
-                    <td>10/07/2026</td>
-                    <td>Utilizar transporte público</td>
-                    <td>30</td>
-                </tr>
-
+                
+                {% endfor %}
 
             </tbody>
 
