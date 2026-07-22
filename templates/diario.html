@@ -31,13 +31,13 @@
             <form action="{{ url_for('guardar_entrada') }}" method="POST">
 
                 <label for="titulo">Título</label>
-                <input type="text" id="titulo" name="titulo">
+                <input type="text" id="titulo" name="titulo" required>
 
                 <label for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha">
+                <input type="date" id="fecha" name="fecha" required>
 
                 <label for="texto">¿Qué has hecho hoy?</label>
-                <textarea id="texto" name="texto"></textarea>
+                <textarea id="texto" name="texto" required></textarea>
 
                 <button type="submit">
                     💾 Guardar entrada
