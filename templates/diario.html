@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECHO - Diario</title>
+    <title>ECHO - {{ _("Diario") }}</title>
 
     <link rel="stylesheet" href="../static/css/diario.css">
 
@@ -15,7 +15,7 @@
 
     <header class="encabezado">
 
-        <h1>📖 Mi Diario</h1>
+        <h1>{{ _("📖 Mi Diario") }}</h1>
 
         <a href="dashboard" class="volver">← Volver</a>
 
@@ -25,22 +25,22 @@
 
         <section class="escribir">
 
-            <h2>Nueva entrada</h2>
+            <h2>{{ _("Nueva entrada") }}</h2>
 
 
             <form action="{{ url_for('guardar_entrada') }}" method="POST">
 
-                <label for="titulo">Título</label>
+                <label for="titulo">{{ _("Título") }}</label>
                 <input type="text" id="titulo" name="titulo" required>
 
-                <label for="fecha">Fecha</label>
+                <label for="fecha">{{ _("Fecha") }}</label>
                 <input type="date" id="fecha" name="fecha" required>
 
-                <label for="texto">¿Qué has hecho hoy?</label>
+                <label for="texto">{{ _("¿Qué has hecho hoy?") }}</label>
                 <textarea id="texto" name="texto" required></textarea>
 
                 <button type="submit">
-                    💾 Guardar entrada
+                    {{ _("💾 Guardar entrada") }}
                 </button>
 
             </form>
@@ -49,7 +49,7 @@
 
         <section class="historial">
 
-            <h2>Mis entradas</h2>
+            <h2>{{ _("Mis entradas") }}</h2>
 
             {% if entradas %}
 
@@ -65,7 +65,7 @@
 
             {% else %}
 
-                <p>Aún no has escrito ninguna entrada.</p>
+                <p>{{ _("Aún no has escrito ninguna entrada.") }}</p>
 
             {% endif %}
 

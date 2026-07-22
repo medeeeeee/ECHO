@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_babel import Babel, _
 from tareas import tareas
 from datetime import date, datetime, timedelta
 import random
 
 app = Flask(__name__)
+babel = Babel(app)
 app.secret_key = "una_clave_secreta"
+app.config['BABEL_DEFAULT_LOCALE'] = 'es'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -99,6 +102,11 @@ def calcular_racha(user_id):
         else:
             break
     return racha
+
+
+@babel.localeselector
+def get_locale():
+    return session.get('lang', 'es')
 
     
 @app.route('/')
@@ -203,6 +211,9 @@ def guardar_ajustes():
     user.plant_name = request.form['plant_name']
 
     db.session.commit()
+
+    session["language"] = request.form["idioma"]
+    return redirect(request.referrer)
 
     return redirect('/ajustes')
     

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECHO - Ajustes</title>
+    <title>ECHO - {{ _("Ajustes") }}</title>
 
     <link rel="stylesheet" href="../static/css/settings.css">
 
@@ -15,7 +15,7 @@
 
     <header class="encabezado">
 
-        <h1>⚙️ Ajustes</h1>
+        <h1>{{ _("⚙️ Ajustes") }}</h1>
 
         <a href="dashboard" class="volver">
             ← Volver
@@ -27,29 +27,33 @@
 
         <section class="tarjeta">
 
-            <h2>👤 Perfil</h2>
+            <h2>{{ _("👤 Perfil") }}</h2>
 
-            <label>Nombre de usuario</label>
+            <label>{{ _("Nombre de usuario") }}</label>
             <input type="text" name="username" value="{{ user.username }}">
 
-            <label>Correo electrónico</label>
+            <label>{{ _("Correo electrónico") }}</label>
             <input type="email" name="email" value="{{ user.email }}">
 
         </section>
 
         <section class="tarjeta">
 
-            <h2>🎨 Personalización</h2>
+            <h2>{{ _("🎨 Personalización") }}</h2>
 
-            <label>Nombre de tu planta</label>
+            <label>{{ _("Nombre de tu planta") }}</label>
             <input type="text" name="plant_name" value="{{ user.plant_name }}">
 
-            <label>Idioma</label>
+            <label>{{ _("Idioma") }}</label>
 
-            <select name="language">
-                <option>Español</option>
-                <option>English</option>
-                <option>Français</option>
+            <select name="idioma" onchange="this.form.submit()">
+
+            <option value="es">🇪🇸 Español</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="it">🇮🇹 Italiano</option>
+
             </select>
 
         </section>
@@ -57,11 +61,11 @@
         <section class="tarjeta botones">
 
             <button type="submit" class="guardar">
-                💾 Guardar cambios
+                {{ _("💾 Guardar cambios") }}
             </button>
 
             <a href="/logout" class="cerrar">
-                🚪 Cerrar sesión
+                {{ _("🚪 Cerrar sesión") }}
             </a>
 
         </section>
