@@ -10,7 +10,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
@@ -53,6 +52,12 @@ def template(user, pagina):
     carpeta = "english" if user.lang == "en" else "espanol"
     prefijo = "en" if user.lang == "en" else "es"
     return f"{carpeta}/{prefijo}_{pagina}.html"
+
+def traducir_tarea(task_id, lang):
+    for task in tareas:
+        if task["id"] == task_id:
+            return task[lang]
+    return task_id
 
 def create_task(user_id):
 
@@ -152,6 +157,9 @@ def dashboard():
             user_id=user_id,
             date=str(date.today())
         ).all()
+
+        for task in tareas:
+            task.texto = traducir_tarea(task.name, user.lang)
 
         return render_template(
             template(user, "dashboard"),
@@ -253,6 +261,9 @@ def tareas_reg():
     ).order_by(Task.date.desc()).all()
     user_id = session['user_id']
     user = User.query.get(user_id)
+
+    for task in tareas:
+        task.texto = traducir_tarea(task.name, user.lang)
 
     return render_template(
         template(user, "registro"),
