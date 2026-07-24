@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECHO - {{ _("Mi Planta") }}</title>
+    <title>ECHO - Mi Planta</title>
 
     <link rel="stylesheet" href="../static/css/principal.css">
 
@@ -15,11 +15,11 @@
     <header class="encabezado">
         <div>
             <h1>🌱 ECHO</h1>
-            <p>{{ _("¡Te damos la bienvenida, {username}!") }}</p>
+            <p>¡Te damos la bienvenida, {{user.name}}!</p>
         </div>
 
         <div class="puntos">
-            {{ _("⭐ {points} puntos").format(points=user.points) }}
+            ⭐ {{user.points}} puntos
         </div>
     </header>
 
@@ -41,13 +41,13 @@
             <h3>{{ user.plant_type }}</h3>
 
             <p class="estado">
-                {{ _("Estado:") }} <strong>
+                Estado: <strong>
                 {% if user.impact < 100 %}
-                    {{ _("Pequeña") }}
+                    Pequeña
                 {% elif user.impact < 200 %}
-                    {{ _("Mediana") }}
+                    Mediana
                 {% else %}
-                    {{ _("Grande") }}
+                    Grande
                 {% endif %}
 
                 
@@ -55,7 +55,7 @@
             </p>
 
             <div class="progreso">
-                <label>{{ _("Crecimiento") }}</label>
+                <label>Crecimiento</label>
                 <progress value="{{ user.impact//3 }}" max="100"></progress>
                 <span>{{ user.impact //3 }} %</span>
             </div>
@@ -63,7 +63,7 @@
 
         <section class="tareas">
 
-            <h2>{{ _("Tareas de hoy") }}</h2>
+            <h2>Tareas de hoy</h2>
 
             <form action="/completar_tareas" method="POST">
 
@@ -94,7 +94,7 @@
                             
                             <label>
                                 {{ task.name }}
-                                (+{{ task.points }} {{ _("puntos") }})
+                                (+{{ task.points }} puntos)
                             </label>
                         </div>
                     {% endif %}
@@ -103,12 +103,12 @@
 
             {% else %}
 
-                <p>{{ _("No tienes tareas pendientes 🎉") }}</p>
+                <p>No tienes tareas pendientes 🎉</p>
 
             {% endif %}
 
             <button class="boton-principal">
-            {{ _("Confirmar tareas completadas") }}
+            Confirmar tareas completadas
             </button>
 
             </form>
@@ -121,18 +121,18 @@
     <section class="resumen">
 
         <div class="card">
-            <h3>{{ _("🔥 Racha") }}</h3>
-            <p>{{ _("{streak} días consecutivos").format(streak=user.streak) }}</p>
+            <h3>🔥 Racha</h3>
+            <p>{{ user.streak }} días consecutivos</p>
         </div>
 
         <div class="card">
-            <h3>{{ _("🏆 Nivel") }}</h3>
-            <p>{{ _("Nivel {lvl}").format(lvl=user.lvl) }}</p>
+            <h3>🏆 Nivel</h3>
+            <p>Nivel {{ user.lvl }}</p>
         </div>
 
         <div class="card">
-            <h3>{{ _("🍃 Impacto") }}</h3>
-            <p>{{ _("{impact} acciones ecológicas").format(impact=user.impact) }}</p>
+            <h3>🍃 Impacto</h3>
+            <p>{{ user.impact }} acciones ecológicas</p>
         </div>
 
     </section>
@@ -149,16 +149,16 @@
         ✕
     </button>
 
-    <h2>{{ _("Menú") }}</h2>
+    <h2>Menú</h2>
 
-    <a href="tareas_reg">{{ _("📋 Registro de tareas") }}</a>
+    <a href="tareas_reg">📋 Registro de tareas</a>
 
-    <a href="diario">{{ _("📖 Diario") }}</a>
+    <a href="diario">📖 Diario</a>
 
-    <a href="ajustes">{{ _("⚙️ Ajustes") }}</a>
+    <a href="ajustes">⚙️ Ajustes</a>
 
     <a href="logout" class="cerrar-sesion">
-        {{ _("🚪 Cerrar sesión") }}
+        🚪 Cerrar sesión
     </a>
 
 </nav>

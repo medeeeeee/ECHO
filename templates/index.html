@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECHO - {{ _("Iniciar Sesión") }}</title>
+    <title>ECHO - Iniciar Sesión</title>
 
     <link rel="stylesheet" href="../static/css/styles.css">
 
@@ -19,13 +19,13 @@
         <h1>ECHO</h1>
 
         <p class="descripcion">
-            {{ _("Cuida de tu planta virtual mientras contribuyes a proteger el medio ambiente.") }}
+            Cuida de tu planta virtual mientras contribuyes a proteger el medio ambiente.
         </p>
 
         <form action="{{url_for('login')}}" method="POST" class="formulario">
 
             <div class="input-group">
-                <label for="correo">{{ _("Correo electrónico") }}</label>
+                <label for="correo">Correo electrónico</label>
                 <input
                     type="email"
                     name="email"
@@ -35,7 +35,7 @@
             </div>
 
             <div class="input-group">
-                <label for="password">{{ _("Contraseña") }}</label>
+                <label for="password">Contraseña</label>
                 <input
                     type="password"
                     name="password"
@@ -45,20 +45,20 @@
             </div>
 
             <button type="submit">
-                {{ _("Iniciar sesión") }}
+                Iniciar sesión
             </button>
 
         </form>
 
         <div class="links">
             <p>
-                {{ _("¿No tienes cuenta?") }}
-                <a href="register">{{ _("Regístrate") }}</a>
+                ¿No tienes cuenta?
+                <a href="register">Regístrate</a>
             </p>
         </div>
 
         <footer>
-            {{ _("🌍 Cada acción hace crecer tu planta y ayuda al planeta.") }}
+            🌍 Cada acción hace crecer tu planta y ayuda al planeta.
         </footer>
 
     </div>

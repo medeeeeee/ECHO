@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECHO - {{ _("Registro de tareas") }}</title>
+    <title>ECHO - Registro de tareas</title>
 
     <link rel="stylesheet" href="../static/css/registro.css">
 
@@ -15,10 +15,10 @@
 
 <header class="encabezado">
 
-    <h1>{{ _("📋 Registro de tareas") }}</h1>
+    <h1>📋 Registro de tareas</h1>
 
     <a href="dashboard" class="volver">
-        {{ _("← Volver") }}
+        ← Volver
     </a>
 
 </header>
@@ -28,17 +28,17 @@
     <section class="resumen">
 
         <div class="estadistica">
-            <h3>{{ _("✅ Completadas") }}</h3>
+            <h3>✅ Completadas</h3>
             <p>{{ user.impact }}</p>
         </div>
 
         <div class="estadistica">
-            <h3>{{ _("⭐ Puntos") }}</h3>
+            <h3>⭐ Puntos</h3>
             <p>{{ user.points }}</p>
         </div>
 
         <div class="estadistica">
-            <h3>{{ _("🔥 Racha") }}</h3>
+            <h3>🔥 Racha</h3>
             <p>{{ user.streak }} días</p>
         </div>
 
@@ -52,10 +52,10 @@
             <thead>
 
                 <tr>
-                    <th>{{ _("Fecha") }}</th>
-                    <th>{{ _("Tarea") }}</th>
-                    <th>{{ _("Puntos") }}</th>
-                    <th>{{ _("Estado") }}</th>
+                    <th>Fecha</th>
+                    <th>Tarea</th>
+                    <th>Puntos</th>
+                    <th>Estado</th>
                 </tr>
 
             </thead>
@@ -70,9 +70,9 @@
                     <td>{{ task.points }}</td>
                     <td>
                         {% if task.completed %}
-                            <span class="completada">{{ _("✅ Completada") }}</span>
+                            <span class="completada">✅ Completada</span>
                         {% else %}
-                            <span class="pendiente">{{ _("❌ Pendiente") }}</span>
+                            <span class="pendiente">❌ Pendiente</span>
                         {% endif %}
                     </td>
                 </tr>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECHO - {{ _("Registrarse") }}</title>
+    <title>ECHO - Registrarse</title>
 
     <link rel="stylesheet" href="../static/css/styles.css">
 
@@ -19,13 +19,13 @@
         <h1>ECHO</h1>
 
         <p class="descripcion">
-            {{ _("Cuida de tu planta virtual mientras contribuyes a proteger el medio ambiente.") }}
+            Cuida de tu planta virtual mientras contribuyes a proteger el medio ambiente.
         </p>
 
         <form action="{{url_for('register')}}" method="POST" class="formulario">
 
             <div class="input-group">
-                <label for="correo">{{ _("Correo electrónico") }}</label>
+                <label for="correo">Correo electrónico</label>
                 <input
                     type="email"
                     name="email"
@@ -35,7 +35,7 @@
             </div>
 
             <div class="input-group">
-                <label for="password">{{ _("Contraseña") }}</label>
+                <label for="password">Contraseña</label>
                 <input
                     type="password"
                     name="password"
@@ -45,7 +45,7 @@
             </div>
 
             <div class="input-group">
-                <label for="username">{{ _("Nombre de usuario") }}</label>
+                <label for="username">Nombre de usuario</label>
                 <input
                     type="text"
                     name="username"
@@ -55,7 +55,7 @@
             </div>
 
             <div class="input-group">
-                <label for="plant_name">{{ _("Nombre de la planta") }}</label>
+                <label for="plant_name">Nombre de la planta</label>
                 <input
                     type="text"
                     name="plant_name"
@@ -65,30 +65,30 @@
             </div>
 
             <div class="input-group">
-                <label for="plant_type">{{ _("Tipo de planta") }}</label>
+                <label for="plant_type">Tipo de planta</label>
                 <select name="plant_type" id="plant_type" required>
-                    <option value="Cactus">{{ _("Cactus") }}</option>
-                    <option value="Suculenta">{{ _("Suculenta") }}</option>
-                    <option value="Orquídea">{{ _("Orquídea") }}</option>
-                    <option value="Roble">{{ _("Roble") }}</option>
+                    <option value="Cactus">Cactus</option>
+                    <option value="Suculenta">Suculenta</option>
+                    <option value="Orquídea">Orquídea</option>
+                    <option value="Roble">Roble</option>
                 </select>
             </div>
 
             <button type="submit">
-                {{ _("Registrarme") }}
+                Registrarme
             </button>
 
         </form>
 
         <div class="links">
             <p>
-                {{ _("¿Ya tienes cuenta?") }}
-                <a href="/login">{{ _("Inicia sesión") }}</a>
+                ¿Ya tienes cuenta?
+                <a href="/login">Inicia sesión</a>
             </p>
         </div>
 
         <footer>
-            {{ _("🌍 Cada acción hace crecer tu planta y ayuda al planeta.") }}
+            🌍 Cada acción hace crecer tu planta y ayuda al planeta.
         </footer>
 
     </div>

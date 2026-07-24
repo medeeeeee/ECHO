@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECHO - {{ _("Ajustes") }}</title>
+    <title>ECHO - Ajustes</title>
 
     <link rel="stylesheet" href="../static/css/settings.css">
 
@@ -15,7 +15,7 @@
 
     <header class="encabezado">
 
-        <h1>{{ _("⚙️ Ajustes") }}</h1>
+        <h1>⚙️ Ajustes</h1>
 
         <a href="dashboard" class="volver">
             ← Volver
@@ -27,24 +27,24 @@
 
         <section class="tarjeta">
 
-            <h2>{{ _("👤 Perfil") }}</h2>
+            <h2>👤 Perfil"</h2>
 
-            <label>{{ _("Nombre de usuario") }}</label>
+            <label>Nombre de usuario</label>
             <input type="text" name="username" value="{{ user.username }}">
 
-            <label>{{ _("Correo electrónico") }}</label>
+            <label>Correo electrónico</label>
             <input type="email" name="email" value="{{ user.email }}">
 
         </section>
 
         <section class="tarjeta">
 
-            <h2>{{ _("🎨 Personalización") }}</h2>
+            <h2>🎨 Personalización</h2>
 
-            <label>{{ _("Nombre de tu planta") }}</label>
+            <label>Nombre de tu planta</label>
             <input type="text" name="plant_name" value="{{ user.plant_name }}">
 
-            <label>{{ _("Idioma") }}</label>
+            <label>Idioma</label>
 
             <select name="idioma" onchange="this.form.submit()">
 
@@ -61,11 +61,11 @@
         <section class="tarjeta botones">
 
             <button type="submit" class="guardar">
-                {{ _("💾 Guardar cambios") }}
+                💾 Guardar cambios
             </button>
 
             <a href="/logout" class="cerrar">
-                {{ _("🚪 Cerrar sesión") }}
+                🚪 Cerrar sesión
             </a>
 
         </section>

@@ -5,7 +5,6 @@ A web app that helps you build good habits to take care of the environment. Your
 -Python 3.12
 -flask (Flask, render_template, request, redirect, session)
 -flask_sqlalchemy (SQLAlchemy)
--flask_babel (Babel)
 -jinja2
 -datetime (date, datetime, timedelta)
 -Random
