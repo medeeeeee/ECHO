@@ -1,14 +1,33 @@
+'''
+IMPORTACIONES
+'''
+
+
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from tareas import tareas
 from datetime import date, datetime, timedelta
 import random
 
+'''
+CONFIGURACIÓN DE LA APP
+'''
+
+
 app = Flask(__name__)
 app.secret_key = "una_clave_secreta"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+
+'''
+CREACIÓN DE LA BASE DE DATOS
+Se crean las bases de user (para datos generales del usuario),
+task (para el registro de tareas)
+y diary_entry (para las entradas del diario)
+'''
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,6 +45,7 @@ class User(db.Model):
     def __repr__(self):
         return f'<User {self.id}>'
 
+
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -36,6 +56,7 @@ class Task(db.Model):
 
     def __repr__(self):
         return f'<Task {self.id}>'
+
 
 class DiaryEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -48,16 +69,32 @@ class DiaryEntry(db.Model):
         return f'<DiaryEntry {self.id}>'
 
 
+'''
+TRADUCCIÓN DE LA PAGINA
+template se encarga de la ruta
+para los archivos en el idioma correcto para render_template
+traducir_tarea se encarga de traducir la lista de tareas de tareas.py
+'''
+
+
 def template(user, pagina):
     carpeta = "english" if user.lang == "en" else "espanol"
     prefijo = "en" if user.lang == "en" else "es"
     return f"{carpeta}/{prefijo}_{pagina}.html"
+
 
 def traducir_tarea(task_id, lang):
     for task in tareas:
         if task["id"] == task_id:
             return task[lang]
     return task_id
+
+
+'''
+AÑADIR TAREAS A DASHBOARD
+si no tiene ya tareas para renovar de manera diaria
+'''
+
 
 def create_task(user_id):
 
@@ -80,6 +117,12 @@ def create_task(user_id):
             date=str(date.today())
         ))
     db.session.commit()
+
+
+'''
+RACHA
+calcula la racha del usuario
+'''
 
 
 def calcular_racha(user_id):
@@ -111,10 +154,22 @@ def calcular_racha(user_id):
         else:
             break
     return racha
-    
+
+
+'''
+RUTAS DE LA PÁGINA WEB
+'''
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+'''
+registra y añade a usuarios nuevos
+'''
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -124,28 +179,48 @@ def register():
         username = request.form['username']
         plant_name = request.form['plant_name']
         plant_type = request.form['plant_type']
-        new_user = User(email=email, password=password, username=username, plant_name=plant_name, plant_type=plant_type)
+        new_user = User(
+            email=email,
+            password=password,
+            username=username,
+            plant_name=plant_name,
+            plant_type=plant_type
+            )
         db.session.add(new_user)
         db.session.commit()
     return render_template('register.html')
 
+
+'''
+permite acceso a la página principal si estás registrado
+'''
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error=''
+    error = ''
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        user_db=User.query.all()
+        user_db = User.query.all()
         for user in user_db:
             if user.email == email and user.password == password:
                 session['user_id'] = user.id
                 return redirect('/dashboard')
-        error='Correo electrónico o contraseña incorrectos'
+        error = 'Correo electrónico o contraseña incorrectos'
         return render_template('index.html', error=error)
-    
+
     else:
         return redirect('/')
-    
+
+
+'''
+muestra la página principal con los datos actualizados
+solo muestra las tareas de hoy
+traduce las tareas antes de mostrarlas
+'''
+
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if 'user_id' in session:
@@ -168,7 +243,14 @@ def dashboard():
         )
     else:
         return redirect('/')
-    
+
+
+'''
+completa tareas
+añade los puntos de las tareas completadas y suma impacto
+mantiene la racha del usuario si completa 1 mínimo por día
+'''
+
 
 @app.route('/completar_tareas', methods=['POST'])
 def completar_tareas():
@@ -195,7 +277,12 @@ def completar_tareas():
 
     return redirect('/dashboard')
 
-    
+
+'''
+muestra los datos que se pueden editar y da la opcion de cerrar sesión
+'''
+
+
 @app.route('/ajustes')
 def ajustes():
     if 'user_id' in session:
@@ -204,7 +291,13 @@ def ajustes():
         return render_template(template(user, "settings"), user=user)
     else:
         return redirect('/')
-    
+
+
+'''
+guarda los cambios de datos de la zona de ajustes
+'''
+
+
 @app.route('/guardar_ajustes', methods=['POST'])
 def guardar_ajustes():
     if 'user_id' not in session:
@@ -220,7 +313,14 @@ def guardar_ajustes():
     db.session.commit()
 
     return redirect('/ajustes')
-    
+
+
+'''
+muestra las entradas de diario del usuario
+da la opción de registrar más entradas
+'''
+
+
 @app.route('/diario')
 def diario():
     if 'user_id' not in session:
@@ -233,6 +333,12 @@ def diario():
     user = User.query.get(user_id)
 
     return render_template(template(user, "diario"), entradas=entradas)
+
+
+'''
+guarda las entradas de diario nuevas en la base de datos del usuario
+'''
+
 
 @app.route('/guardar_entrada', methods=['POST'])
 def guardar_entrada():
@@ -250,6 +356,13 @@ def guardar_entrada():
     db.session.commit()
 
     return redirect('/diario')
+
+
+'''
+muestra todo el registro de tareas del usuario con el estado de cada una
+traduce las tareas para poder mostrarlas
+'''
+
 
 @app.route('/tareas_reg')
 def tareas_reg():
@@ -270,13 +383,26 @@ def tareas_reg():
         user=user,
         tareas=tareas
     )
-    
+
+
+'''
+permite cerrar sesión
+'''
+
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     return redirect('/')
 
+
+'''
+crea las bases de datos si no están creadas
+'''
+
+
 with app.app_context():
     db.create_all()
+
 
 app.run(debug=True)
