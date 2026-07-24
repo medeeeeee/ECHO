@@ -22,6 +22,7 @@ class User(db.Model):
     streak = db.Column(db.Integer, default=0)
     lvl = db.Column(db.Integer, default=0)
     impact = db.Column(db.Integer, default=0)
+    lang = db.Column(db.String(10), default='es')
 
     def __repr__(self):
         return f'<User {self.id}>'
@@ -46,6 +47,12 @@ class DiaryEntry(db.Model):
 
     def __repr__(self):
         return f'<DiaryEntry {self.id}>'
+
+
+def template(user, pagina):
+    carpeta = "english" if user.language == "en" else "espanol"
+    prefijo = "en" if user.language == "en" else "es"
+    return f"{carpeta}/{prefijo}_{pagina}.html"
 
 def create_task(user_id):
 
@@ -147,7 +154,7 @@ def dashboard():
         ).all()
 
         return render_template(
-            'dashboard.html',
+            template(user, "dashboard"),
             user=user,
             tareas=tareas
         )

@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECHO - My Plant</title>
+
+    <link rel="stylesheet" href="../static/css/principal.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div>
+            <h1>🌱 ECHO</h1>
+            <p>Welcome, {{user.name}}!</p>
+        </div>
+
+        <div class="puntos">
+            ⭐ {{user.points}} points
+        </div>
+    </header>
+
+    <main class="contenido">
+
+        <section class="planta">
+            <h2>{{ user.plant_name }}</h2>
+
+            <div class="imagen-planta">
+                {% if user.impact < 100 %}
+                    🌱
+                {% elif user.impact < 200 %}
+                    🌾 
+                {% else %}
+                    🌳 
+                {% endif %}
+            </div>
+
+            <h3>{{ user.plant_type }}</h3>
+
+            <p class="estado">
+                State: <strong>
+                {% if user.impact < 100 %}
+                    Small
+                {% elif user.impact < 200 %}
+                    Medium
+                {% else %}
+                    Large
+                {% endif %}
+
+                
+                </strong>
+            </p>
+
+            <div class="progreso">
+                <label>Growth</label>
+                <progress value="{{ user.impact//3 }}" max="100"></progress>
+                <span>{{ user.impact //3 }} %</span>
+            </div>
+        </section>
+
+        <section class="tareas">
+
+            <h2>Tasks for today</h2>
+
+            <form action="/completar_tareas" method="POST">
+
+            {% if tareas %}
+
+                {% for task in tareas %}
+                    {% if task.completed %}
+                        <div class="tarea completada">
+                            <input 
+                            type="checkbox"
+                            name="tareas"
+                            value="{{ task.id }}"
+                            checked
+                            disabled>
+                            
+                            <label>
+                                {{ task.name }}
+                                (+{{ task.points }} points)
+                            </label>
+                        </div>
+                    {% else %}
+
+                        <div class="tarea">
+                            <input 
+                            type="checkbox"
+                            name="tareas"
+                            value="{{ task.id }}">
+                            
+                            <label>
+                                {{ task.name }}
+                                (+{{ task.points }} points)
+                            </label>
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>You have no pending tasks 🎉</p>
+
+            {% endif %}
+
+            <button class="boton-principal">
+            Confirmar tareas completadas
+            </button>
+
+            </form>
+
+        </section>
+
+
+    </main>
+
+    <section class="resumen">
+
+        <div class="card">
+            <h3>🔥 Streak</h3>
+            <p>{{ user.streak }} consecutive days</p>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Level</h3>
+            <p>Level {{ user.lvl }}</p>
+        </div>
+
+        <div class="card">
+            <h3>🍃 Impact</h3>
+            <p>{{ user.impact }} ecological actions</p>
+        </div>
+
+    </section>
+
+        <!-- Botón del menú -->
+<button class="menu-btn" onclick="abrirMenu()">
+    ☰
+</button>
+
+<!-- Menú lateral -->
+<nav id="menuLateral" class="menu-lateral">
+
+    <button class="cerrar-menu" onclick="cerrarMenu()">
+        ✕
+    </button>
+
+    <h2>Menu</h2>
+
+    <a href="tareas_reg">📋 Task Registration</a>
+
+    <a href="diario">📖 Journal</a>
+
+    <a href="ajustes">⚙️ Settings</a>
+
+    <a href="logout" class="cerrar-sesion">
+        🚪 Log Out
+    </a>
+
+</nav>
+
+<script>
+function abrirMenu(){
+    document.getElementById("menuLateral").style.left="0";
+}
+
+function cerrarMenu(){
+    document.getElementById("menuLateral").style.left="-280px";
+}
+</script>
+
+
+</body>
+</html>

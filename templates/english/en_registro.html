@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECHO - Task Registration</title>
+
+    <link rel="stylesheet" href="../static/css/registro.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="encabezado">
+
+    <h1>📋 Task Registration</h1>
+
+    <a href="dashboard" class="volver">
+        ← Back
+    </a>
+
+</header>
+
+<main class="contenedor">
+
+    <section class="resumen">
+
+        <div class="estadistica">
+            <h3>✅ Completed</h3>
+            <p>{{ user.impact }}</p>
+        </div>
+
+        <div class="estadistica">
+            <h3>⭐ Points</h3>
+            <p>{{ user.points }}</p>
+        </div>
+
+        <div class="estadistica">
+            <h3>🔥 Streak</h3>
+            <p>{{ user.streak }} days</p>
+        </div>
+
+    </section>
+
+
+    <section class="tabla">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tarea</th>
+                    <th>Puntos</th>
+                    <th>Estado</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for task in tareas %}
+
+                <tr>
+                    <td>{{ task.date }}</td>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.points }}</td>
+                    <td>
+                        {% if task.completed %}
+                            <span class="completada">✅ Completed</span>
+                        {% else %}
+                            <span class="pendiente">❌ Uncompleted</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

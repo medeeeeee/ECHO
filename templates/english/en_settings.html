@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECHO - Settings</title>
+
+    <link rel="stylesheet" href="../static/css/settings.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="encabezado">
+
+        <h1>⚙️ Settings</h1>
+
+        <a href="dashboard" class="volver">
+            ← Back
+        </a>
+
+    </header>
+
+    <form class="form" action="/guardar_ajustes" method="POST">
+
+        <section class="tarjeta">
+
+            <h2>👤 Profile</h2>
+
+            <label>Username</label>
+            <input type="text" name="username" value="{{ user.username }}">
+
+            <label>Email</label>
+            <input type="email" name="email" value="{{ user.email }}">
+
+        </section>
+
+        <section class="tarjeta">
+
+            <h2>🎨 Customization</h2>
+
+            <label>Your Plant's Name</label>
+            <input type="text" name="plant_name" value="{{ user.plant_name }}">
+
+            <label>Language</label>
+
+            <select name="idioma" onchange="this.form.submit()">
+
+            <option value="es">🇪🇸 Español</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="it">🇮🇹 Italiano</option>
+
+            </select>
+
+        </section>
+
+        <section class="tarjeta botones">
+
+            <button type="submit" class="guardar">
+                💾 Save Changes
+            </button>
+
+            <a href="/logout" class="cerrar">
+                🚪 Log Out
+            </a>
+
+        </section>
+
+
+    </form>
+
+</body>
+
+</html>

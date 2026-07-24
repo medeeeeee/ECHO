@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECHO - Journal</title>
+
+    <link rel="stylesheet" href="../static/css/diario.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="encabezado">
+
+        <h1>📖 My Journal</h1>
+
+        <a href="dashboard" class="volver">← Back</a>
+
+    </header>
+
+    <main class="contenedor">
+
+        <section class="escribir">
+
+            <h2>New Entry</h2>
+
+
+            <form action="{{ url_for('guardar_entrada') }}" method="POST">
+
+                <label for="titulo">Title</label>
+                <input type="text" id="titulo" name="titulo" required>
+
+                <label for="fecha">Date</label>
+                <input type="date" id="fecha" name="fecha" required>
+
+                <label for="texto">What have you done today?</label>
+                <textarea id="texto" name="texto" required></textarea>
+
+                <button type="submit">
+                    💾 Save Entry
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="historial">
+
+            <h2>My Entries</h2>
+
+            {% if entradas %}
+
+                {% for entrada in entradas %}
+
+                    <div class="entrada">
+                        <h3>{{ entrada.date}}</h3>
+                        <h4>{{ entrada.title }}</h4>
+                        <p>{{ entrada.content }}</p>
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>You haven't written any entries yet.</p>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
