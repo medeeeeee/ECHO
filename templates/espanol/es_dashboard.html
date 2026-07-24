@@ -15,7 +15,7 @@
     <header class="encabezado">
         <div>
             <h1>🌱 ECHO</h1>
-            <p>¡Te damos la bienvenida, {{user.name}}!</p>
+            <p>¡Te damos la bienvenida, {{user.username}}!</p>
         </div>
 
         <div class="puntos">
@@ -81,7 +81,7 @@
                             
                             <label>
                                 {{ task.name }}
-                                (+{{ task.points }} {{ _("puntos") }})
+                                (+{{ task.points }} puntos)
                             </label>
                         </div>
                     {% else %}

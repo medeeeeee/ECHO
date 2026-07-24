@@ -50,8 +50,8 @@ class DiaryEntry(db.Model):
 
 
 def template(user, pagina):
-    carpeta = "english" if user.language == "en" else "espanol"
-    prefijo = "en" if user.language == "en" else "es"
+    carpeta = "english" if user.lang == "en" else "espanol"
+    prefijo = "en" if user.lang == "en" else "es"
     return f"{carpeta}/{prefijo}_{pagina}.html"
 
 def create_task(user_id):
@@ -193,7 +193,7 @@ def ajustes():
     if 'user_id' in session:
         user_id = session['user_id']
         user = User.query.get(user_id)
-        return render_template('settings.html', user=user)
+        return render_template(template(user, "settings"), user=user)
     else:
         return redirect('/')
     
@@ -207,6 +207,7 @@ def guardar_ajustes():
     user.username = request.form['username']
     user.email = request.form['email']
     user.plant_name = request.form['plant_name']
+    user.lang = request.form['lang']
 
     db.session.commit()
 
@@ -220,8 +221,10 @@ def diario():
     entradas = DiaryEntry.query.filter_by(
         user_id=session['user_id']
     )
+    user_id = session['user_id']
+    user = User.query.get(user_id)
 
-    return render_template("diario.html", entradas=entradas)
+    return render_template(template(user, "diario"), entradas=entradas)
 
 @app.route('/guardar_entrada', methods=['POST'])
 def guardar_entrada():
@@ -248,10 +251,12 @@ def tareas_reg():
     tareas = Task.query.filter_by(
         user_id=session['user_id']
     ).order_by(Task.date.desc()).all()
+    user_id = session['user_id']
+    user = User.query.get(user_id)
 
     return render_template(
-        'registro.html',
-        user=User.query.get(session['user_id']),
+        template(user, "registro"),
+        user=user,
         tareas=tareas
     )
     
